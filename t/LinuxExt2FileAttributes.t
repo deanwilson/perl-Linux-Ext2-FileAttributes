@@ -1,6 +1,6 @@
 #!perl -w
 use strict;
-use Test::More tests => 9;
+use Test::More tests => 7;
 
 BEGIN { use_ok('Linux::Ext2::FileAttributes') }
 
