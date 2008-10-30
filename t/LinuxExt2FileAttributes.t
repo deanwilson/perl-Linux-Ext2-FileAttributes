@@ -13,7 +13,3 @@ can_ok('Linux::Ext2::FileAttributes', 'set_immutable');
 can_ok('Linux::Ext2::FileAttributes', 'is_append_only');
 can_ok('Linux::Ext2::FileAttributes', 'clear_append_only');
 can_ok('Linux::Ext2::FileAttributes', 'set_append_only');
-
-# check the util functions
-can_ok('Linux::Ext2::FileAttributes', 'get_ext2_attributes');
-can_ok('Linux::Ext2::FileAttributes', 'set_ext2_attributes');
