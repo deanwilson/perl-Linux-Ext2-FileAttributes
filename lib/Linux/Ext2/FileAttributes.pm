@@ -75,6 +75,9 @@ By default this module exports:
 
 This function takes a filename and attempts to set its immutable flag.
 
+If this flag is set on a file, even root cannot change the files content
+without first removing the flag.
+
 =item is_immutable
 
 This function takes a filename and returns true if the immutable flag is
@@ -89,6 +92,9 @@ is present.
 
 This function takes a filename and attempts to set its appendable flag.
 
+If this flag is set on a file then its contents can be added to but not
+removed unless the flag is first removed.
+
 =item is_append_only
 
 This function takes a filename and returns true if the immutable flag is
@@ -98,6 +104,8 @@ set and false if it isn't.
 
 This function takes a filename and removes the appendable flag if it
 is present.
+
+=back
 
 =cut
 
@@ -191,7 +199,7 @@ L<http://search.cpan.org/~jpierce/Filesys-Ext2-0.20/Ext2.pm>
 
 Native Ext2 commands:
 
-L<chattr(1)>, L<lsattr(1)>
+L<chattr>, L<lsattr>
 
 =head1 LICENCE AND COPYRIGHT
 
