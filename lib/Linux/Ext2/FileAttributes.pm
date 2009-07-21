@@ -33,12 +33,26 @@ traversal and modification
 package Linux::Ext2::FileAttributes;
 use strict;
 use warnings;
+use Config;
 
 # The first constant is from http://www.netadmintools.com/html/2ioctl_list.man.html
 # Hard coding these removes the dependency on h2ph
 
-use constant EXT2_IOC_GETFLAGS => 0x80046601;
-use constant EXT2_IOC_SETFLAGS => 0x40046602;
+# to see which arch you are look at
+# perl -MConfig -le 'print $Config{myarchname}'
+
+my ($EXT2_IOC_GETFLAGS, $EXT2_IOC_SETFLAGS);
+
+if ( $Config{myarchname} =~ /i\d86-linux/ ) {
+  $EXT2_IOC_GETFLAGS = 0x80046601;
+  $EXT2_IOC_SETFLAGS = 0x40046602;
+} elsif ($Config{myarchname} eq 'x86_64-linux' ) {
+  $EXT2_IOC_GETFLAGS = 0x80086601;
+  $EXT2_IOC_SETFLAGS = 0x40086602;
+} else {
+  die "I don't recognise this architecture - aborting\n";
+}
+
 use constant EXT2_IMMUTABLE_FL => 16;
 use constant EXT2_APPEND_FL    => 32;
 
@@ -151,7 +165,7 @@ sub _get_ext2_attributes {
   open my $fh, $file
     or return;
   my $res = pack 'i', 0;
-  return unless defined ioctl($fh, EXT2_IOC_GETFLAGS, $res);
+  return unless defined ioctl($fh, $EXT2_IOC_GETFLAGS, $res);
   $res = unpack 'i', $res;
 }
 
@@ -161,7 +175,7 @@ sub _set_ext2_attributes {
   open my $fh, $file
     or return;
   my $flag = pack 'i', $flags;
-  return unless defined ioctl($fh, EXT2_IOC_SETFLAGS, $flag);
+  return unless defined ioctl($fh, $EXT2_IOC_SETFLAGS, $flag);
 }
 
 # export as expert tag ########################
