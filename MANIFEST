@@ -7,7 +7,6 @@ examples/files/no_immutable
 examples/files/set_appendable
 examples/files/set_immutable
 examples/test_immutable.pl
-examples/test_immutable_.pl
 examples/test_module_functions.pl
 lib/Linux/Ext2/FileAttributes.pm
 MANIFEST			This list of files
